@@ -26,7 +26,7 @@ Different ways to zero out general purpose registers.
     loop     .loop
 ```
 Compute the Fibonacci sequence up to the nth element, where n is stored in the __ecx__ register. 
-The xadd instruction exchanges the values of __rax__ and __rdx__, then adds the values and stores the sum in rax. In each iteration, the latest sum becomes the previous number for the next addition (by exchanging the values). 
+The xadd instruction exchanges the values of __rax__ and __rdx__, then adds the values and stores the sum in __rax__. In each iteration, the latest sum becomes the previous number for the next addition (by exchanging the values). 
 The loop continues until __ecx__ reaches 0. The result is in __rax__.
 Before starting the loop, __rax__ must be set to 0 and __rdx__ to 1. 
 
