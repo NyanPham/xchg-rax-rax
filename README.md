@@ -30,3 +30,11 @@ The xadd instruction exchanges the values of __rax__ and __rdx__, then adds the 
 The loop continues until __ecx__ reaches 0. The result is in __rax__.
 Before starting the loop, __rax__ must be set to 0 and __rdx__ to 1. 
 
+### Snippet [0x02](https://www.xorpd.net/pages/xchg_rax/snip_02.html)
+```
+neg      rax
+sbb      rax,rax
+neg      rax
+```
+Check the value in the `rax` register to be non-zero or not. If it's non-zero, store 1 back in `rax`, 0 otherwise. 
+`rax = (rax != 0 ? 1 : 0)`
