@@ -60,8 +60,10 @@ Toggle the 6th bit of the char, converting uppercase letters to lowercase and vi
 sub      rax,5
 cmp      rax,4
 ```
-Check if a number in the `rax` register is between __5__ and __9__.  If in range, the instructions `jbe` or `jna` will execute. 
-This one is a vague one.
-If `rax` < 5, the `sub rax, 5` will result in negative result. However, the `jbe` instruction treats the result as an unsigned value. So the `cmp rax, 4` is between a large unsigned number with 4.
-If `rax` > 9, the `sub rax, 5` will result in larger number than 4 already. `jbe` condition is not met and won't occur.
+Check if a number in the `rax` register is between __5__ and __9__.  If in range, the instructions `jbe` or `jna` will execute. This snippet is a vague one.
+
+If `rax` < 5, the `sub rax, 5` will result in negative number. However, the `jbe` instruction treats the result as an unsigned value. So the `cmp rax, 4` is between a large unsigned number with 4. The `jbe` condition is not met, and the jump won't occur.
+
+If `rax` > 9, the `sub rax, 5` will result in larger number than 4. The `jbe` condition is not met, and the jump won't occur.
+
 Finally, if `rax` is either 5, 6, 7, 8, 9, the `sub rax, 5` will be 0, 1, 2, 3, 4 respectively. Any of these differences satifies the condition of <= 4 when `cmp rax, 4`, thus the `jbe` condition is met, and the jump will occur.
