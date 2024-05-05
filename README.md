@@ -48,3 +48,9 @@ add      rax,rcx
 ```
 Get the min value between `rdx` and `rax` registers. The result is stored in `rax`.  
 `rax = min(rdx, rax)`
+
+### Snippet [0x04](https://www.xorpd.net/pages/xchg_rax/snip_04.html)
+```
+xor      al,0x20
+```
+Toggle the 6th bit of the char, converting uppercase letters to lowercase and vice versa.
