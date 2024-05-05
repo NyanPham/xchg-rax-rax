@@ -6,7 +6,7 @@ My journal of the x64 Assembly exploration upon the completion of Assembly Langu
 
 ## Solutions
 
-### Snippet [0x00](https://www.xorpd.net/pages/xchg_rax/snip_00.html)
+### Snippet [[0x00]](https://www.xorpd.net/pages/xchg_rax/snip_00.html)
 ```
 xor      eax,eax
 lea      rbx,[0]
@@ -19,7 +19,7 @@ pop      rbp
 ```	
 Different ways to zero out general purpose registers.
 
-### Snippet [0x01](https://www.xorpd.net/pages/xchg_rax/snip_01.html)
+### Snippet [[0x01]](https://www.xorpd.net/pages/xchg_rax/snip_01.html)
 ```
 .loop:
     xadd     rax,rdx
@@ -30,7 +30,7 @@ The xadd instruction exchanges the values of `rax` and `rdx`, then adds the valu
 The loop continues until `ecx` reaches 0. The result is in `rax`.  
 Before starting the loop, `rax` must be set to 0 and `rdx` to 1. 
 
-### Snippet [0x02](https://www.xorpd.net/pages/xchg_rax/snip_02.html)
+### Snippet [[0x02]](https://www.xorpd.net/pages/xchg_rax/snip_02.html)
 ```
 neg      rax
 sbb      rax,rax
@@ -39,7 +39,7 @@ neg      rax
 Check the value in the `rax` register to be non-zero or not. If it's non-zero, store 1 back in `rax`, 0 otherwise. 
 `rax = (rax != 0 ? 1 : 0)`
 
-### Snippet [0x03](https://www.xorpd.net/pages/xchg_rax/snip_03.html)
+### Snippet [[0x03]](https://www.xorpd.net/pages/xchg_rax/snip_03.html)
 ```
 sub      rdx,rax
 sbb      rcx,rcx
@@ -49,8 +49,19 @@ add      rax,rcx
 Get the min value between `rdx` and `rax` registers. The result is stored in `rax`.  
 `rax = min(rdx, rax)`
 
-### Snippet [0x04](https://www.xorpd.net/pages/xchg_rax/snip_04.html)
+### Snippet [[0x04]](https://www.xorpd.net/pages/xchg_rax/snip_04.html)
 ```
 xor      al,0x20
 ```
 Toggle the 6th bit of the char, converting uppercase letters to lowercase and vice versa.
+
+### Snippet [[0x05]](https://www.xorpd.net/pages/xchg_rax/snip_05.html)
+```
+sub      rax,5
+cmp      rax,4
+```
+Check if a number in the `rax` register is between __5__ and __9__.  If in range, the instructions `jbe` or `jna` will execute. 
+This one is a vague one.
+If `rax` < 5, the `sub rax, 5` will result in negative result. However, the `jbe` instruction treats the result as an unsigned value. So the `cmp rax, 4` is between a large unsigned number with 4.
+If `rax` > 9, the `sub rax, 5` will result in larger number than 4 already. `jbe` condition is not met and won't occur.
+Finally, if `rax` is either 5, 6, 7, 8, 9, the `sub rax, 5` will be 0, 1, 2, 3, 4 respectively. Any of these differences satifies the condition of <= 4 when `cmp rax, 4`, thus the `jbe` condition is met, and the jump will occur.
