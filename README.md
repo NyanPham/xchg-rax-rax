@@ -75,3 +75,12 @@ inc      rax
 neg      rax
 ```
 The `not` instruction results in the 1's complement of a number. Then the `inc` adds 1 to it, convert the previous result to the 2's complement. So the combination of `not` and `inc` instructions is equivalent to a `neg` instruction. So the result above is NOTHING as two negations cancel out each other. The only thing changed is the flag. Indeed, the `neg` instruction set the CF flag to 0 if the operand is 0, 1 otherwise.
+
+### Snippet [[0x07]](https://www.xorpd.net/pages/xchg_rax/snip_07.html)
+```
+inc      rax
+neg      rax
+inc      rax
+neg      rax
+```
+The snippet does nothing but waste cycles as combinations of `inc` and `neg` cancel each other.
