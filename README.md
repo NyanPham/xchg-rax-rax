@@ -83,11 +83,18 @@ neg      rax
 inc      rax
 neg      rax
 ```
-The snippet does nothing but waste cycles as combinations of `inc` and `neg` cancel each other.
+Does nothing but wastes cycles as the 2 combinations of `inc` and `neg` cancel each other.
 
 ### Snippet [[0x08]](https://www.xorpd.net/pages/xchg_rax/snip_08.html)
 ```
 add      rax,rdx
 rcr      rax,1
 ``` 
-The snippet computes the average of two positive numbers or two negative numbers. The reason it supports negative is due to the `rcr` instruction as it prevent overflows: it shifts CF into the most-significant bit and shifts the least-significant bit into CF.
+Computes the average of two positive numbers or two negative numbers. The reason it supports negative is due to the `rcr` instruction as it prevent overflows: it shifts CF into the most-significant bit and shifts the least-significant bit into CF.
+
+### Snippet [[0x09]](https://www.xorpd.net/pages/xchg_rax/snip_09.html)
+```
+shr      rax,3
+adc      rax,0
+```
+Computes the `rax` / 8. Rounded up to the nearest integer with `adc rax, 0`.
