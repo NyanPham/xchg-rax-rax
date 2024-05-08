@@ -90,11 +90,22 @@ Does nothing but wastes cycles as the 2 combinations of `inc` and `neg` cancel e
 add      rax,rdx
 rcr      rax,1
 ``` 
-Computes the average of two positive numbers or two negative numbers. The reason it supports negative is due to the `rcr` instruction as it prevent overflows: it shifts CF into the most-significant bit and shifts the least-significant bit into CF.
+Computes the average of two positive numbers or two negative numbers. The reason it supports negative is due to the `rcr` instruction as it prevents overflow: it shifts CF into the most-significant bit and shifts the least-significant bit into CF (doing the 33-bit rotation with CF).
 
 ### Snippet [[0x09]](https://www.xorpd.net/pages/xchg_rax/snip_09.html)
 ```
 shr      rax,3
 adc      rax,0
+```	
+Computes the `rax / 8`. Rounded up to the nearest integer with `adc rax, 0`.
+
+### Snippet [[0x0a]](https://www.xorpd.net/pages/xchg_rax/snip_0a.html)
+```	
+	add      byte [rdi],1
+.loop:	
+    inc      rdi	
+    adc      byte [rdi],0
+    loop     .loop
 ```
-Computes the `rax` / 8. Rounded up to the nearest integer with `adc rax, 0`.
+Increments by one the number pointed at by the `rdi` register, which is an `rcx` byte long integer.
+
