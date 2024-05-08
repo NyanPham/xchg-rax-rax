@@ -100,7 +100,7 @@ adc      rax,0
 Computes the `rax / 8`. Rounded up to the nearest integer with `adc rax, 0`.
 
 ### Snippet [[0x0a]](https://www.xorpd.net/pages/xchg_rax/snip_0a.html)
-```	
+```
 	add      byte [rdi],1
 .loop:	
     inc      rdi	
@@ -109,3 +109,11 @@ Computes the `rax / 8`. Rounded up to the nearest integer with `adc rax, 0`.
 ```
 Increments by one the number pointed at by the `rdi` register, which is an `rcx` byte long integer.
 
+### Snippet [[0x0b]](https://www.xorpd.net/pages/xchg_rax/snip_0b.html)
+```
+not      rdx
+neg      rax
+sbb      rdx,-1
+```
+If `rax` is 0, the `neg` operation is performed on the `rdx`. Otherwise, the `not` operation is performed.
+Application: Negate 16-byte integer in `rdx:rax` registers.
