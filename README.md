@@ -214,3 +214,15 @@ neg      rcx
 xchg     rax,rcx
 ```
 Different ways to exchange values of `rax` and `rcx`.
+
+### Snippet [[0x11]](https://www.xorpd.net/pages/xchg_rax/snip_11.html)
+```
+.loop:
+    mov      dl,byte [rsi]
+    xor      dl,byte [rdi]
+    inc      rsi
+    inc      rdi
+    or       al,dl
+    loop     .loop
+```
+Compare two strings pointed at by `rsi` and `rdi` of `rcx` bytes in length. `al` is remained 0 if both buffers have no differences (`al` must be zero initialized before the loop).
