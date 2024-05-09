@@ -194,3 +194,23 @@ string[2] = string[2] ^ string[1]
 string[3] = string[3] ^ string[2]
 ...
 ```
+
+### Snippet [[0x10]](https://www.xorpd.net/pages/xchg_rax/snip_10.html)
+```
+push     rax
+push     rcx
+pop      rax
+pop      rcx
+
+xor      rax,rcx
+xor      rcx,rax
+xor      rax,rcx
+
+add      rax,rcx
+sub      rcx,rax
+add      rax,rcx
+neg      rcx
+
+xchg     rax,rcx
+```
+Different ways to exchange values of `rax` and `rcx`.
