@@ -101,7 +101,7 @@ Computes the `rax / 8`. Rounded up to the nearest integer with `adc rax, 0`.
 
 ### Snippet [[0x0a]](https://www.xorpd.net/pages/xchg_rax/snip_0a.html)
 ```
-	add      byte [rdi],1
+    add      byte [rdi],1
 .loop:	
     inc      rdi	
     adc      byte [rdi],0
