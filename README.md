@@ -116,4 +116,24 @@ neg      rax
 sbb      rdx,-1
 ```
 If `rax` is 0, the `neg` operation is performed on the `rdx`. Otherwise, the `not` operation is performed.
-Application: Negate 16-byte integer in `rdx:rax` registers.
+Application: Negate a 16-byte integer in `rdx:rax` registers.
+
+### Snippet [[0x0c]](https://www.xorpd.net/pages/xchg_rax/snip_0c.html)
+```
+mov      rcx,rax
+xor      rcx,rbx
+ror      rcx,0xd
+
+ror      rax,0xd
+ror      rbx,0xd
+xor      rax,rbx
+
+cmp      rax,rcx
+```
+`rax` and `rcx` have the same value from the beginning, and also in the end due to the associative property of the `xor` operation.
+
+```
+rcx = rax 
+rcx = (rcx ^ rbx) >> 13
+rax = (rax >> 13) ^ (rbx >> 13)
+```
