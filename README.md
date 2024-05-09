@@ -178,4 +178,18 @@ rcx = ~(rcx & rbx)
 rax = ~rax | ~rbx
 ```
 
+### Snippet [[0x0f]](https://www.xorpd.net/pages/xchg_rax/snip_0f.html)
+```
+.loop:
+    xor      byte [rsi],al
+    lodsb
+    loop     .loop
+```
+Resembles an 8-bit CBC mode block cipher. the IV is initialized in the `al` register, that plays an important role as a key to cipher text.
 
+```
+string[0] = string[0] ^ al
+string[1] = string[1] ^ string[0]
+string[2] = string[2] ^ string[1]
+string[3] = string[3] ^ string[2]
+...
