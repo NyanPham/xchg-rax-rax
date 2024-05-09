@@ -137,3 +137,24 @@ rcx = rax
 rcx = (rcx ^ rbx) >> 13
 rax = (rax >> 13) ^ (rbx >> 13)
 ```
+
+### Snippet [[0x0d]](https://www.xorpd.net/pages/xchg_rax/snip_0d.html)
+```
+mov      rdx,rbx
+
+xor      rbx,rcx
+and      rbx,rax
+
+and      rdx,rax
+and      rax,rcx
+xor      rax,rdx
+
+cmp      rax,rbx
+```
+`rax` and `rbx` have the same value in the end regardless of their initial values thanks to the distributive property of the `and` and `xor` operations.
+
+```
+rdx = rbx
+rbx = (rbx ^ rcx) & rax
+rax = (rdx & rax) ^ (rcx & rcx)
+```
