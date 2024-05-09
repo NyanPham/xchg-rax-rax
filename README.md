@@ -158,3 +158,24 @@ rdx = rbx
 rbx = (rbx ^ rcx) & rax
 rax = (rdx & rax) ^ (rcx & rcx)
 ```
+
+### Snippet [[0x0e]](https://www.xorpd.net/pages/xchg_rax/snip_0e.html)
+```
+mov      rcx,rax
+and      rcx,rbx
+not      rcx
+
+not      rax
+not      rbx
+or       rax,rbx
+
+cmp      rax,rcx
+```
+Boolean Algebra with DeMorgan's law.
+```
+rcx = rax 
+rcx = ~(rcx & rbx)
+rax = ~rax | ~rbx
+```
+
+
