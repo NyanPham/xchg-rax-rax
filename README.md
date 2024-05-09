@@ -226,3 +226,16 @@ Different ways to exchange values of `rax` and `rcx`.
     loop     .loop
 ```
 Compare two strings pointed at by `rsi` and `rdi` of `rcx` bytes in length. `al` is remained 0 if both buffers have no differences (`al` must be zero initialized before the loop).
+
+### Snippet [[0x12]](https://www.xorpd.net/pages/xchg_rax/snip_12.html)
+```
+mov      rcx,rdx
+and      rdx,rax
+or       rax,rcx
+add      rax,rdx
+```
+Computes `rax + rdx` through logical operators.
+```
+(rax | rdx) + (rax & rdx) = rax + rdx
+```
+
