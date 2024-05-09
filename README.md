@@ -193,3 +193,4 @@ string[1] = string[1] ^ string[0]
 string[2] = string[2] ^ string[1]
 string[3] = string[3] ^ string[2]
 ...
+```
