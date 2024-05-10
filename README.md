@@ -267,5 +267,14 @@ Computes the average between `rax` and `rdx`, rounded to the lowest integer and 
 
 `(rax & rdx) + ((rax ^ rdx) / 2) = (rax + rdx) / 2`
 
+### Snippet [[0x15]](https://www.xorpd.net/pages/xchg_rax/snip_15.html)
+```
+mov      rdx,0xffffffff80000000
+add      rax,rdx
+xor      rax,rdx
+```
+Extends 32-bit content in `eax` to 64-bit in `rax`, preserving the sign. The upper half of `rax` is assumed to be zero.
 
+If `eax` is negative, `add` instruction overflows the 33th bit of `rax` (the lowest bit in upper half), causing all upper half to be zero. Then `xor` to restore the upper half of `rdx` to negative.
 
+If `eax` is positive, the overflow never occurs after `add` instruction. Then `xor` to remove the upper half of `rdx`, leaving `rax` stay positive.
