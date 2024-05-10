@@ -317,3 +317,22 @@ Computes the absolute value of `rax`.
 If `rax` is negative, `rdx` is 0xffffffffffffffff, then `xor rax, rdx` results in `not rax`. And subtracting `rdx` (-1) converts `rax` to the 2's complement of the original value.
 If `rax` is positive, `rdx` is set to 0, both following operations `xor rax, rdx`, `sub rax, rdx` do nothing.
 
+### Snippet [[0x18]](https://www.xorpd.net/pages/xchg_rax/snip_18.html)
+```
+rdtsc
+shl      rdx,0x20
+or       rax,rdx
+mov      rcx,rax
+
+rdtsc
+shl      rdx,0x20
+or       rax,rdx
+
+cmp      rcx,rax
+```
+Compares two timestamps.
+`rdtsc` reads the 64-bit timestamp, and store in `edx:eax`.
+Shift `rdx` 32 bits to the left and merge them to the upper half of `rax`. We end up the 64-bit of timestamp stored in `rax`
+
+The first timestamp is stored in `rcx`, which is then used to compared the later timestamp in `rax`. Of course, `rax` is always larger than `rcx`.
+
