@@ -252,3 +252,20 @@ Computes `rax + rdx` through logical operators.
 Computes `rax = rax + rbx`, using a set of recursive logical operations.
 
 This resembles the implementation of an adder in electronics. `xor` is to find the output of a bit, `and` is to detect a carry for more siginificant bit position.
+
+### Snippet [[0x14]](https://www.xorpd.net/pages/xchg_rax/snip_14.html)
+```
+mov      rcx,rax
+and      rcx,rdx
+
+xor      rax,rdx
+shr      rax,1
+
+add      rax,rcx
+```
+Computes the average between `rax` and `rdx`, rounded to the lowest integer and stored in `rax`.
+
+`(rax & rdx) + ((rax ^ rdx) / 2) = (rax + rdx) / 2`
+
+
+
