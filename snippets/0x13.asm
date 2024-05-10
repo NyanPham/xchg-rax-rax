@@ -4,16 +4,18 @@ global _start
 extern ExitProcess
 
 _start:	
-	mov		rax, 86h
-	mov		rdx, 0xd9
-				
+	mov		rax, 6h
+	mov		rbx, 1h
 	;====================
 	; Start snippet
 	;====================
-	mov		rcx, rdx 
-	and		rdx, rax
-	or		rax, rcx
-	add		rax, rdx
+	mov		rcx, 0x40
+.loop:
+	mov		rdx, rax 
+	xor		rax, rbx
+	and		rbx, rdx 
+	shl		rbx, 0x1 
+	loop	.loop
 	;====================
 	; End snippet
 	;====================
