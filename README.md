@@ -278,3 +278,29 @@ Extends 32-bit content in `eax` to 64-bit in `rax`, preserving the sign. The upp
 If `eax` is negative, `add` instruction overflows the 33th bit of `rax` (the lowest bit in upper half), causing all upper half to be zero. Then `xor` to restore the upper half of `rdx` to negative.
 
 If `eax` is positive, the overflow never occurs after `add` instruction. Then `xor` to remove the upper half of `rdx`, leaving `rax` stay positive.
+
+### Snippet [[0x16]](https://www.xorpd.net/pages/xchg_rax/snip_16.html)
+```
+xor      rax,rbx
+xor      rbx,rcx
+mov      rsi,rax
+add      rsi,rbx
+cmovc    rax,rbx
+xor      rax,rbx
+cmp      rax,rsi
+```
+Computes `rax` to be either 0 or `rax ^ rcx`
+```
+rsi = (rax ^ rbx) + (rbx ^ rcx)
+if (CF == 1)
+	rax = (rbx ^ rcx) // (cmovc)
+	rax = (rbx ^ rcx) ^ (rbx ^ rcx) // (xor rax, rbx)
+	rax = 0
+else
+	rax = ((rax ^ rbx) + (rbx ^ rcx)) ^ (rbx ^ rcx) // (xor rax, rbx)
+	rax = ((rax ^ rbx) ^ (rbx ^ rcx)) + ((rbx ^ rcx) ^ (rbx ^ rcx)) (distributive)
+	rax = ((rax ^ rbx) ^ (rbx ^ rcx)) + 0 
+	rax = rax ^ rcx
+```
+Application: unknown.
+
