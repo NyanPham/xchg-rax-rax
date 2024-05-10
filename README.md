@@ -304,3 +304,16 @@ else
 ```
 Application: unknown.
 
+### Snippet [[0x17]](https://www.xorpd.net/pages/xchg_rax/snip_17.html)
+```
+cqo
+xor      rax,rdx
+sub      rax,rdx
+```
+Computes the absolute value of `rax`.
+`rax = |rax|`
+
+`cqo` sets all bits in `rdx` to 1 if `rax` is negative, 0 otherwise.
+If `rax` is negative, `rdx` is 0xffffffffffffffff, then `xor rax, rdx` results in `not rax`. And subtracting `rdx` (-1) converts `rax` to the 2's complement of the original value.
+If `rax` is positive, `rdx` is set to 0, both following operations `xor rax, rdx`, `sub rax, rdx` do nothing.
+
