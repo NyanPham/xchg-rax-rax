@@ -336,7 +336,7 @@ Shift `rdx` 32 bits to the left and merge them to the upper half of `rax`. We en
 
 The first timestamp is stored in `rcx`, which is then used to compared the later timestamp in `rax`. Of course, `rax` is always larger than `rcx`.
 
-### Snippet [[0x019]](https://www.xorpd.net/pages/xchg_rax/snip_19.html)
+### Snippet [[0x19]](https://www.xorpd.net/pages/xchg_rax/snip_19.html)
 ```
     call     .skip
     db       'hello world!',0
@@ -347,3 +347,11 @@ The first timestamp is stored in `rcx`, which is then used to compared the later
 Call `print_str("hello world!");`
 
 The instruction `call .skip` pushes the address of the string `hello world!` to the stack, an argument in the external subroutine `print_str`. `add rsp, 8` cleans the stack without returning after `.skip`.
+
+### Snippet [[0x1a]](https://www.xorpd.net/pages/xchg_rax/snip_1a.html)
+```
+    call     .next
+.next:
+    pop      rax
+```
+Gets the current instruction pointer `rip` and stores it into `rax`. `rax = .next`
