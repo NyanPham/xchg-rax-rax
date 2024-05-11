@@ -363,3 +363,9 @@ ret
 ```
 Jumps to the address stored in `rax`.
 `rip = rax` or `jmp rax`.
+
+### Snippet [[0x1c]](https://www.xorpd.net/pages/xchg_rax/snip_1c.html)
+```
+pop      rsp
+```
+Loads the value on top of the stack `rsp` to `rsp`.

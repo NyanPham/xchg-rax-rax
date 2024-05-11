@@ -1,24 +1,24 @@
+section .data
+	hello	db	'hello world!',13,10,0
+
 section .text
 global _start
 
 extern ExitProcess
 	
 _start:	
-	mov		rax, .end_prog
+	lea		rax, [rel hello]
+	push	rax
 	
 	;====================
 	; Start snippet
 	;====================
-	push	rax 
-	ret 
+	pop		rsp
 	;====================
 	; End snippet
 	;====================
 	
-.break_not_ret:
-	int 	3
-			
-.end_prog:
-
+	add		rsp, 8*3
+	
 	xor		ecx, ecx 
 	call	ExitProcess
