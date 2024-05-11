@@ -355,3 +355,11 @@ The instruction `call .skip` pushes the address of the string `hello world!` to 
     pop      rax
 ```
 Gets the current instruction pointer `rip` and stores it into `rax`. `rax = .next`
+
+### Snippet [[0x1b]](https://www.xorpd.net/pages/xchg_rax/snip_1b.html)
+```
+push     rax
+ret
+```
+Jumps to the address stored in `rax`.
+`rip = rax` or `jmp rax`.
