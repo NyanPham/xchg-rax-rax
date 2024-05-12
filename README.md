@@ -369,3 +369,19 @@ Jumps to the address stored in `rax`.
 pop      rsp
 ```
 Loads the value on top of the stack `rsp` to `rsp`.
+
+### Snippet [[0x1d]](https://www.xorpd.net/pages/xchg_rax/snip_1d.html)
+```
+mov      rsp,buff2 + n*8 + 8
+mov      rbp,buff1 + n*8
+enter    0,n+1
+```
+TODO: Take a look at the data flow between buff2 and buff1.
+
+### Snippet [[0x1e]](https://www.xorpd.net/pages/xchg_rax/snip_1e.html)
+```
+cmp      al,0x0a
+sbb      al,0x69
+das
+```
+Converts `al` from 0x00 to 0x0f to their corresponding Hexadecimal ASCII code.
