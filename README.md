@@ -376,7 +376,17 @@ mov      rsp,buff2 + n*8 + 8
 mov      rbp,buff1 + n*8
 enter    0,n+1
 ```
-TODO: Take a look at the data flow between buff2 and buff1.
+Copies `buff1` to `buff2`.
+
+`mov 	rsp, buff2 + n*8 + 8`: Load the address of `buff2 + n*8 + 8` to the stack pointer. +8 adjustment accounts for the effect of `enter` instruction, which subtracts 8 bytes from `rsp`.  
+
+`mov	rbp, buff1 + n*8`: Load the address `buff1 + n*8` to the base frame pointer, setting up the current frame for copying.
+  
+`enter	0, n+1`: 
+- First, subtracts 8 from `rsp`and stores the address `buff1 + n*8` into the stack at address `buff2 + n*8`. We still have a stack frames from address `buff2` to `buff2 + n*8` to copy the contents of `buff1`. 
+- Next, loads the address `buff2 + n*8` into `rbp`, effectively setting up the current frame for copying. `rbp` now has access to the previous stack frames, `buff1 + n*8` which is the address content stored at `buff2 + n*8`.
+- `n+1` is the nesting level, which is utilized to copy the value pointed by address stored in `rbp`.
+This means it copies the frames of `buff1`-`buff1 + n*8` to its current frame `buff2`-`buff2 + n*8`.
 
 ### Snippet [[0x1e]](https://www.xorpd.net/pages/xchg_rax/snip_1e.html)
 ```
