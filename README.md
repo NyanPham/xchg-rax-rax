@@ -395,3 +395,22 @@ sbb      al,0x69
 das
 ```
 Converts `al` from 0x00 to 0x0f to their corresponding Hexadecimal ASCII code.
+
+### Snippet [[0x1f]](https://www.xorpd.net/pages/xchg_rax/snip_1f.html)
+```
+.loop:
+    bsf      rcx,rax
+    shr      rax,cl
+    cmp      rax,1
+    je       .exit_loop
+    lea      rax,[rax + 2*rax + 1]
+    jmp      .loop
+.exit_loop:
+```
+__Collatz conjecture__ 
+For each iteration in `.loop`, the snippet does the following operations:
+- Searches for the index of the first set least significant bit of `rax`, starting at index 0. Stores the index in `rcx`.
+- Shift `rax` to the right `cl` times. This effectively divides `rax` by 2^cl, making `rax` an odd number.
+- Computes the new `rax`: `rax = (rax * 3) + 1`
+- Repeats until `rax = 1`
+
