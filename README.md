@@ -53,7 +53,7 @@ Get the min value between `rdx` and `rax` registers. The result is stored in `ra
 ```
 xor      al,0x20
 ```
-Toggle the 6th bit of the char, converting uppercase letters to lowercase and vice versa.
+Toggle the 6th bit of the char (bit at index 5), converting uppercase letters to lowercase and vice versa.
 
 ### Snippet [[0x05]](https://www.xorpd.net/pages/xchg_rax/snip_05.html)
 ```
@@ -156,7 +156,7 @@ cmp      rax,rbx
 ```
 rdx = rbx
 rbx = (rbx ^ rcx) & rax
-rax = (rdx & rax) ^ (rcx & rcx)
+rax = (rdx & rax) ^ (rcx & rax)
 ```
 
 ### Snippet [[0x0e]](https://www.xorpd.net/pages/xchg_rax/snip_0e.html)
@@ -386,7 +386,7 @@ Copies `buff1` to `buff2`.
 - First, subtracts 8 from `rsp`and stores the address `buff1 + n*8` into the stack at address `buff2 + n*8`. We still have a stack frames from address `buff2` to `buff2 + n*8` to copy the contents of `buff1`. 
 - Next, loads the address `buff2 + n*8` into `rbp`, effectively setting up the current frame for copying. `rbp` now has access to the previous stack frames, `buff1 + n*8` which is the address content stored at `buff2 + n*8`.
 - `n+1` is the nesting level, which is utilized to copy the value pointed by address stored in `rbp`.
-This means it copies the frames of `buff1`-`buff1 + n*8` to its current frame `buff2`-`buff2 + n*8`.
+This means it copies the frames of (`buff1->buff1 + n*8`) to its current frame (`buff2->buff2 + n*8`).
 
 ### Snippet [[0x1e]](https://www.xorpd.net/pages/xchg_rax/snip_1e.html)
 ```
@@ -407,7 +407,7 @@ Converts `al` from 0x00 to 0x0f to their corresponding Hexadecimal ASCII code.
     jmp      .loop
 .exit_loop:
 ```
-__Collatz conjecture__ 
+__Collatz conjecture__   
 For each iteration in `.loop`, the snippet does the following operations:
 - Searches for the index of the first set least significant bit of `rax`, starting at index 0. Stores the index in `rcx`.
 - Shift `rax` to the right `cl` times. This effectively divides `rax` by 2^cl, making `rax` an odd number.
