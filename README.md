@@ -414,3 +414,40 @@ For each iteration in `.loop`, the snippet does the following operations:
 - Computes the new `rax`: `rax = (rax * 3) + 1`
 - Repeats until `rax = 1`
 
+### Snippet [[0x20]](https://www.xorpd.net/pages/xchg_rax/snip_20.html)
+```
+mov      rcx,rax
+shl      rcx,2
+add      rcx,rax
+shl      rcx,3
+add      rcx,rax
+shl      rcx,1
+add      rcx,rax
+shl      rcx,1
+add      rcx,rax
+shl      rcx,3
+add      rcx,rax
+```
+Computes `rcx = 1337 * rax`.
+
+### Snippet [[0x21]](https://www.xorpd.net/pages/xchg_rax/snip_21.html)
+```
+mov      rsi,rax
+add      rax,rbx
+mov      rdi,rdx
+sub      rdx,rcx
+add      rdi,rcx
+
+imul     rax,rcx
+imul     rsi,rdx
+imul     rdi,rbx
+
+add      rsi,rax
+mov      rbx,rsi
+sub      rax,rdi
+```
+Computes the following:
+```
+rax = rax*rcx - rbx*rdx 
+rbx = rax*rdx + rbx*rcx
+```
