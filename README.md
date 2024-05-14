@@ -463,6 +463,7 @@ shr      rdx,1
 mov      rax,rdx
 ```
 Divides `rax` by 3, rounded down to the closest integer.
+
 `rax = rax / 3`
 
 ### Snippet [[0x23]](https://www.xorpd.net/pages/xchg_rax/snip_23.html)
@@ -484,4 +485,23 @@ Divides `rax` by 3, rounded down to the closest integer.
     sub      rax,rdx
 ```
 Computes `rax` modulo 3.
-`rax = rax % 3`.
+
+`rax = rax % 3`
+
+The snippet uses the base 4 to compute the modulo. The reason why we use base 4 is that `4 % 3 = 1`, and raising 4 to any power always results in a number that is % 3 = 1.
+
+The loop adds each digit in base 4, reduces into `rax`:
+- Set `rdx=rax` (preserve the current content in `rax`).
+- Isolate the least siginificant 2 bits (1 digit in base 4) with `and rax, 3`.
+- Shift the next digit into place into place for addition with `shr	rdx, 2`.
+- Add the digit at index 0 into the number, store in `rax`. 
+- Repeats untils `rax` is reduced into the range between 0 and 5.
+
+Exit the loop:
+- Compare the reduced value with 3.
+- There are 2 cases: 
+	- If the value is less than 3 (0, 1, 2), the remainder is the value subtracts 0 (is the value itself).
+	- If the value is larger or equal to 3 (3, 4, 5), the remainder is the value subtracts 3.
+- The minuend of either 0 or 3 is determined thanks to the `cmc` instruction to set the contents of `rdx`.
+
+
