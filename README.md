@@ -464,3 +464,24 @@ mov      rax,rdx
 ```
 Divides `rax` by 3, rounded down to the closest integer.
 `rax = rax / 3`
+
+### Snippet [[0x23]](https://www.xorpd.net/pages/xchg_rax/snip_23.html)
+```
+.loop:
+    cmp      rax,5
+    jbe      .exit_loop
+    mov      rdx,rax
+    shr      rdx,2
+    and      rax,3
+    add      rax,rdx
+    jmp      .loop
+.exit_loop:
+
+    cmp      rax,3
+    cmc
+    sbb      rdx,rdx
+    and      rdx,3
+    sub      rax,rdx
+```
+Computes `rax` modulo 3.
+`rax = rax % 3`.
