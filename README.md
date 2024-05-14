@@ -446,8 +446,21 @@ add      rsi,rax
 mov      rbx,rsi
 sub      rax,rdi
 ```
-Computes the following:
+Resembles the multiplication of 2 complex numbers:
+```
+(a + bi)(c + di) = (ac - bd) + (ad + bc)i
+```
 ```
 rax = rax*rcx - rbx*rdx 
 rbx = rax*rdx + rbx*rcx
 ```
+
+### Snippet [[0x22]](https://www.xorpd.net/pages/xchg_rax/snip_22.html)
+```
+mov      rdx,0xaaaaaaaaaaaaaaab
+mul      rdx
+shr      rdx,1
+mov      rax,rdx
+```
+Divides `rax` by 3, rounded down to the closest integer.
+`rax = rax / 3`
