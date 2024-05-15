@@ -493,8 +493,8 @@ The snippet uses the base 4 to compute the modulo. The reason why we use base 4 
 The loop adds each digit in base 4, reduces into `rax`:
 - Set `rdx=rax` (preserve the current content in `rax`).
 - Isolate the least siginificant 2 bits (1 digit in base 4) with `and rax, 3`.
-- Shift the next digit into place into place for addition with `shr	rdx, 2`.
-- Add the digit at index 0 into the number, store in `rax`. 
+- Shift the next digit into place for addition with `shr rdx, 2`.
+- Add the isolated digit into the shifted content, then stored in `rax`. 
 - Repeats untils `rax` is reduced into the range between 0 and 5.
 
 Exit the loop:
@@ -504,4 +504,35 @@ Exit the loop:
 	- If the value is larger or equal to 3 (3, 4, 5), the remainder is the value subtracts 3.
 - The minuend of either 0 or 3 is determined thanks to the `cmc` instruction to set the contents of `rdx`.
 
+### Snippet [[0x24]](https://www.xorpd.net/pages/xchg_rax/snip_24.html)
+```
+    mov      rbx,rax
+    mov      rsi,rax
+.loop:
+    mul      rbx
+    mov      rcx,rax
+
+    sub      rax,2
+    neg      rax
+    mul      rsi
+    mov      rsi,rax
+
+    cmp      rcx,1
+    ja       .loop
+.exit_loop:
+```
+Pseudo code: (assume `rax` is a)
+```
+b = a 
+c = a
+do {
+	c = a * b
+	b = b * (2 - c)
+} while (c > 1);
+```
+The snippet computes the multiplicative inverse via Newtons' method.
+
+In each iteration, the number of bits doubles. So when `cmp rcx, 1`, `ja` condition is met when `rcx` set its most siginificant bit (64). So this finds the multiplicative inverse of `rax` modulo 2^64.
+
+Reference: [ModeInverse](https://marc-b-reynolds.github.io/math/2017/09/18/ModInverse.html)
 
