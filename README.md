@@ -455,6 +455,8 @@ rax = rax*rcx - rbx*rdx
 rbx = rax*rdx + rbx*rcx
 ```
 
+TODO: Learn more about Complex Number, Karatsuba Algorithm.
+
 ### Snippet [[0x22]](https://www.xorpd.net/pages/xchg_rax/snip_22.html)
 ```
 mov      rdx,0xaaaaaaaaaaaaaaab
@@ -534,5 +536,46 @@ The snippet computes the multiplicative inverse via Newtons' method.
 
 In each iteration, the number of bits doubles. So when `cmp rcx, 1`, `ja` condition is met when `rcx` set its most siginificant bit (64). So this finds the multiplicative inverse of `rax` modulo 2^64.
 
-Reference: [ModeInverse](https://marc-b-reynolds.github.io/math/2017/09/18/ModInverse.html)
+TODO: Learn more about multiplicative inverse.
 
+Reference: [ModInverse](https://marc-b-reynolds.github.io/math/2017/09/18/ModInverse.html)
+
+### Snippet [[0x25]](https://www.xorpd.net/pages/xchg_rax/snip_25.html)
+```
+    xor      eax,eax
+    mov      rcx,1
+    shl      rcx,0x20
+.loop:
+    movzx    rbx,cx
+    imul     rbx,rbx
+
+    ror      rcx,0x10
+    movzx    rdx,cx
+    imul     rdx,rdx
+    rol      rcx,0x10
+
+    add      rbx,rdx
+    shr      rbx,0x20
+    cmp      rbx,1
+    adc      rax,0
+    loop     .loop
+```
+In the beginning, `rcx = 0x100000000` 
+
+In each iteration:
+	- `movzx rbx, cx`: Isolate the lower 2 bytes of `ecx` into `rbx`. Call it X.
+	- `imul rbx, rbx`: X^2
+	
+	- `ror rcx, 0x10`: Align the upper 2 bytes of `ecx` into place, lower 2 bytes preserved.
+	- `movzx rdx, cx`: Isolate the 2 bytes into `rdx`. Call it Y.
+	- `imul rdx, rdx`: Y^2
+	- `rol rcx, 0x10`: Restore the content in `rcx`.
+	
+	- `add rbx, rdx`: X^2 + Y^2. Each X or Y is 2-byte (0xffff max), so result is in range between 0 and 0x1FFFC0002. 
+	- `shr rbx, 0x20`: Shifting the bit 32th to the right. So the least siginificant bit is either 0 or 1.
+	- `cmp rbx, 1`: Set the carry flag accordingly. 
+	- `adc rax, 0`: Increment `rax` by 1 if X^2 + Y^2 < 0x100000000 (0x10000^2).
+	
+Summary:
+	We have a circle whose radius is 0x10000, centered at the origin (0, 0).  `ecx` is the holder of all points (X, Y), where each X,Y is in range [0, 0xffff].  The `loop .loop` instruction decrement `ecx`, moving the check to the next point.  Computes the length^2 from the origin of the circle to the point (X,Y) using Pythagorean algorithm.  If length^2 < radius^2 (0x10000^2, or 0x100000000), increment the counter `rax`. In the end `rax` holds the number points that lie inside the circle.
+	
