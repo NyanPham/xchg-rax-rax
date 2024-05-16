@@ -571,11 +571,19 @@ In each iteration:
 	- `imul rdx, rdx`: Y^2
 	- `rol rcx, 0x10`: Restore the content in `rcx`.
 	
-	- `add rbx, rdx`: X^2 + Y^2. Each X or Y is 2-byte (0xffff max), so result is in range between 0 and 0x1FFFC0002. 
-	- `shr rbx, 0x20`: Shifting the bit 32th to the right. So the least siginificant bit is either 0 or 1.
+	- `add rbx, rdx`: X^2 + Y^2. Each X or Y is [0, 0xffff], so result is between 0 and 0x1FFFC0002. 
+	- `shr rbx, 0x20`: Shifting the bit 32th to the right. So `rbx` is either 0 or 1.
 	- `cmp rbx, 1`: Set the carry flag accordingly. 
 	- `adc rax, 0`: Increment `rax` by 1 if X^2 + Y^2 < 0x100000000 (0x10000^2).
 	
 Summary:
-	We have a circle whose radius is 0x10000, centered at the origin (0, 0).  `ecx` is the holder of all points (X, Y), where each X,Y is in range [0, 0xffff].  The `loop .loop` instruction decrement `ecx`, moving the check to the next point.  Computes the length^2 from the origin of the circle to the point (X,Y) using Pythagorean algorithm.  If length^2 < radius^2 (0x10000^2, or 0x100000000), increment the counter `rax`. In the end `rax` holds the number points that lie inside the circle.
+	We have a circle whose radius is 0x10000, centered at the origin (0, 0).  `ecx` holds a point coordinate (X, Y), where each X,Y is in range [0, 0xffff].  The `loop .loop` instruction decrement `ecx`, moving the check to the next point.  Computes the length^2 from the origin of the circle to the point (X,Y) using Pythagorean algorithm.  If length^2 < radius^2 (0x10000^2, or 0x100000000), increment the counter `rax`. In the end `rax` holds the number of the points that lie inside the circle.
 	
+### Snippet [[0x26]](https://www.xorpd.net/pages/xchg_rax/snip_26.html)
+```
+mov      rdx,rax
+shr      rax,7
+shl      rdx,0x39
+or       rax,rdx
+```
+Computes `ror rax, 7`, or `rol rax, 0x39
