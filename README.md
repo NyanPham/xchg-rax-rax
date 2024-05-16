@@ -586,4 +586,18 @@ shr      rax,7
 shl      rdx,0x39
 or       rax,rdx
 ```
-Computes `ror rax, 7`, or `rol rax, 0x39
+Computes `ror rax, 7`, or `rol rax, 0x39`
+
+	
+### Snippet [[0x27]](https://www.xorpd.net/pages/xchg_rax/snip_27.html)
+```
+mov      ch,cl
+inc      ch
+shr      ch,1
+shr      cl,1
+shr      rax,cl
+xchg     ch,cl
+shr      rax,cl
+```
+Computes `rax = rax >> ((cl / 2) + ((cl + 1) / 2))`
+
