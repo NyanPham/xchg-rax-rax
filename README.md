@@ -611,3 +611,11 @@ Computes `rax = rax >> ((cl / 2) + ((cl + 1) / 2))`
     loop     .loop
 ```
 Divides by 2 an __arbitrarily long__ `rcx` bytes integer pointed by `rsi`, rounded down the nearest integer.
+
+### Snippet [[0x29](https://www.xorpd.net/pages/xchg_rax/snip_29.html)
+```
+lea 	rdi,[rsi + 3]
+rep movsb
+```
+Replaces the buffer pointed by `rsi` with the pattern of the first 3 bytes of the buffer.
+
