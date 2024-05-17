@@ -506,6 +506,8 @@ Exit the loop:
 	- If the value is larger or equal to 3 (3, 4, 5), the remainder is the value subtracts 3.
 - The minuend of either 0 or 3 is determined thanks to the `cmc` instruction to set the contents of `rdx`.
 
+TODO: Review this
+
 ### Snippet [[0x24]](https://www.xorpd.net/pages/xchg_rax/snip_24.html)
 ```
     mov      rbx,rax
@@ -587,7 +589,6 @@ shl      rdx,0x39
 or       rax,rdx
 ```
 Computes `ror rax, 7`, or `rol rax, 0x39`
-
 	
 ### Snippet [[0x27]](https://www.xorpd.net/pages/xchg_rax/snip_27.html)
 ```
@@ -601,3 +602,12 @@ shr      rax,cl
 ```
 Computes `rax = rax >> ((cl / 2) + ((cl + 1) / 2))`
 
+### Snippet [[0x28]](https://www.xorpd.net/pages/xchg_rax/snip_28.html)
+```
+    clc
+.loop:
+    rcr      byte [rsi],1
+    inc      rsi
+    loop     .loop
+```
+Divides by 2 an __arbitrarily long__ `rcx` bytes integer pointed by `rsi`, rounded down the nearest integer.
