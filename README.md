@@ -612,10 +612,22 @@ Computes `rax = rax >> ((cl / 2) + ((cl + 1) / 2))`
 ```
 Divides by 2 an __arbitrarily long__ `rcx` bytes integer pointed by `rsi`, rounded down the nearest integer.
 
-### Snippet [[0x29](https://www.xorpd.net/pages/xchg_rax/snip_29.html)
+### Snippet [[0x29]](https://www.xorpd.net/pages/xchg_rax/snip_29.html)
 ```
 lea 	rdi,[rsi + 3]
 rep movsb
 ```
 Replaces the buffer pointed by `rsi` with the pattern of the first 3 bytes of the buffer.
 
+### Snippet [[0x2a]](https://www.xorpd.net/pages/xchg_rax/snip_2a.html)
+```
+    mov      rsi,rbx
+    mov      rdi,rbx
+.loop:
+    lodsq
+    xchg     rax,qword [rbx]
+    stosq
+    loop     .loop
+```
+Rotates right 8 bytes of a buffer pointed by `rsi`. The number of bytes of the buffer is stored in `rcx`.
+In other words, it moves the last qword in `ecx`-length qword array to the front.

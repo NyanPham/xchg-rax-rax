@@ -8,22 +8,11 @@ _start:
 	
 	lea		rsi, [rsp + 8*4]
 	
-	mov		byte [rsi+0], 0x76
-	mov		byte [rsi+1], 0x29
-	mov		byte [rsi+2], 0xbf
-	mov		byte [rsi+3], 0xec
-	mov		byte [rsi+4], 0x79
-	mov		byte [rsi+5], 0x32
-	mov		byte [rsi+6], 0xaf
-	mov		byte [rsi+7], 0x35
-	mov		byte [rsi+8], 0x55
-	mov		byte [rsi+9], 0x74
-	mov		byte [rsi+10], 0x47
-	mov		byte [rsi+11], 0x16
-	mov		byte [rsi+12], 0x47
-	mov		byte [rsi+13], 0x54
-	mov		byte [rsi+14], 0x74
-	mov		byte [rsi+15], 0x62
+	mov		dword [rsi], 0xecbf2976 
+	mov		dword [rsi + 4], 0x35af3279
+	
+	mov		dword [rsi + 8], 0x47547462
+	mov		dword [rsi + 12], 0x55744716
 			
 	mov		rcx, 0x0a
 	;====================
