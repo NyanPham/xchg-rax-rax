@@ -631,3 +631,37 @@ Replaces the buffer pointed by `rsi` with the pattern of the first 3 bytes of th
 ```
 Rotates right 8 bytes of a buffer pointed by `rsi`. The number of bytes of the buffer is stored in `rcx`.
 In other words, it moves the last qword in `ecx`-length qword array to the front.
+
+### Snippet [[0x2b]](https://www.xorpd.net/pages/xchg_rax/snip_2b.html)
+```
+    xor      eax,eax
+    xor      edx,edx
+.loop1:
+    xlatb
+    xchg     rax,rdx
+    xlatb
+    xlatb
+    xchg     rax,rdx
+    cmp      al,dl
+    jnz      .loop1
+
+    xor      eax,eax
+.loop2:
+    xlatb
+    xchg     rax,rdx
+    xlatb
+    xchg     rax,rdx
+    cmp      al,dl
+    jnz      .loop2
+```
+Find duplicates in an array, utilizing Floyd's Tortoise and Hare algorithm.
+- `eax` is Tortoise, `edx` is Hare.
+- Loop 1: find the meeting point of Tortoise and Hare in the cycle.
+- Loop 2: find the start of the cycle, which is the duplicate value.
+
+TODO: Learn more about the algorithm.
+
+References: 
+[Floyd's Tortoise and Hare](https://en.wikipedia.org/wiki/Cycle_detection#Floyd's_tortoise_and_hare)
+
+[Floyd's cycle detection algorithm (Tortoise and hare) - Inside code](https://youtu.be/PvrxZaH_eZ4)
