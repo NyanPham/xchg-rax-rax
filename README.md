@@ -662,7 +662,7 @@ Find duplicates in an array, utilizing Floyd's Tortoise and Hare algorithm.
 TODO: Learn more about the algorithm.
 
 References: 
-[Wiki: Floyd's Tortoise and Hare](https://en.wikipedia.org/wiki/Cycle_detection#Floyd's_tortoise_and_hare)
+[Wiki: Floyd's Tortoise and Hare](https://en.wikipedia.org/wiki/Cycle_detection#Floyd's_tortoise_and_hare)  
 [YouTube: Floyd's cycle detection algorithm (Tortoise and hare) - Inside code](https://youtu.be/PvrxZaH_eZ4)
 
 ### Snippet [[0x2c]](https://www.xorpd.net/pages/xchg_rax/snip_2c.html)
@@ -680,3 +680,11 @@ Load into `rax` the content in `rsi` if `rcx` and `rdx` are different, `rdi` oth
 `rax = (rcx == rdx) ? rdi : rsi`
 
 Note that the snippet uses only `mov` instructions to implement a conditional operation.
+
+### Snippet [[0x2d]](https://www.xorpd.net/pages/xchg_rax/snip_2d.html)
+```
+mov      rdx,rax
+dec      rax
+and      rax,rdx
+```
+Checks if the content in `rax` is a power of 2. If yes, `rax` is 0, 1 otherwise.
