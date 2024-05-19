@@ -698,3 +698,17 @@ shr      rax,1
 cmp      rax,rdx
 ```
 Checks if the content in `rax` is a power of 2 and not zero. If `rax == rdx` in the end, the original value in `rax` is a power of 2 and not zero.
+
+### Snippet [[0x2f](https://www.xorpd.net/pages/xchg_rax/snip_2f.html)
+```
+    xor      eax,eax
+.loop:
+    jrcxz    .exit_loop
+    inc      rax
+    mov      rdx,rcx
+    dec      rdx
+    and      rcx,rdx
+    jmp      .loop
+.exit_loop:
+```
+Counts the number of set bits in `rcx`, stores the count in `rax`. The `dec` followed by `and` effectively clears least siginificant bit that is set in each iteration until `rcx` reaches 0. 
