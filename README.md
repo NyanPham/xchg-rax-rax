@@ -688,3 +688,13 @@ dec      rax
 and      rax,rdx
 ```
 Checks if the content in `rax` is a power of 2. If yes, `rax` is 0, 1 otherwise.
+
+### Snippet [[0x2e]](https://www.xorpd.net/pages/xchg_rax/snip_2e.html)
+```
+mov      rdx,rax
+dec      rdx
+xor      rax,rdx
+shr      rax,1
+cmp      rax,rdx
+```
+Checks if the content in `rax` is a power of 2 and not zero. If `rax == rdx` in the end, the original value in `rax` is a power of 2 and not zero.
