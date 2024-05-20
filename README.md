@@ -742,4 +742,29 @@ xor      rdx,rcx
 `rdx = (gray code of rax) ^ (graycode of rax + 1)`
 The operation `shr` by 1 and `xor` the original number results in gray code of that number.
 
+### Snippet [[0x32]](https://www.xorpd.net/pages/xchg_rax/snip_32.html)
+```
+mov      rcx,rax
+
+mov      rdx,rax
+shr      rdx,1
+xor      rax,rdx
+
+popcnt   rax,rax
+xor      rax,rcx
+and      rax,1
+```
+The snippet always returns 0.
+
+`rax = (popcnt(rax ^ (rax >> 1)) ^ rax) & 1 = 0`
+
+
+(popcnt(rax ^ (rax >> 1)) ^ rax) always equals to 0. That means the least significant bit of popcnt(rax ^ (rax >> 1)) must be always the same as the least significant bit of `rax`. 
+In simpler terms, `rax` is odd, the number of set bits of graycode of rax is also an odd, if `rax` is even, it will also be even.
+
+
+
+
+
+
 
