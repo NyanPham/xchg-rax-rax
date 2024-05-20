@@ -712,3 +712,34 @@ Checks if the content in `rax` is a power of 2 and not zero. If `rax == rdx` in 
 .exit_loop:
 ```
 Counts the number of set bits in `rcx`, stores the count in `rax`. The `dec` followed by `and` effectively clears least siginificant bit that is set in each iteration until `rcx` reaches 0. 
+
+### Snippet [[0x30]](https://www.xorpd.net/pages/xchg_rax/snip_30.html)
+```
+and      rax,rdx
+
+sub      rax,rdx
+and      rax,rdx
+
+dec      rax
+and      rax,rdx
+```
+Computes `rax = ((((rax & rdx) - rdx) & rdx) - 1) & rdx`. The result is equal to `rax & rdx`
+
+### Snippet [[0x31]](https://www.xorpd.net/pages/xchg_rax/snip_31.html)
+```
+mov      rcx,rax
+shr      rcx,1
+xor      rcx,rax
+
+inc      rax
+
+mov      rdx,rax
+shr      rdx,1
+xor      rdx,rax
+
+xor      rdx,rcx
+```
+`rdx = (gray code of rax) ^ (graycode of rax + 1)`
+The operation `shr` by 1 and `xor` the original number results in gray code of that number.
+
+
