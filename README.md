@@ -762,8 +762,33 @@ The snippet always returns 0.
 (popcnt(rax ^ (rax >> 1)) ^ rax) always equals to 0. That means the least significant bit of popcnt(rax ^ (rax >> 1)) must be always the same as the least significant bit of `rax`. 
 In simpler terms, `rax` is odd, the number of set bits of graycode of rax is also an odd, if `rax` is even, it will also be even.
 
+### Snippet [[0x33]](https://www.xorpd.net/pages/xchg_rax/snip_33.html)
+```
+mov      rdx,rax
+shr      rdx,0x1
+xor      rax,rdx
 
+mov      rdx,rax
+shr      rdx,0x2
+xor      rax,rdx
 
+mov      rdx,rax
+shr      rdx,0x4
+xor      rax,rdx
+
+mov      rdx,rax
+shr      rdx,0x8
+xor      rax,rdx
+
+mov      rdx,rax
+shr      rdx,0x10
+xor      rax,rdx
+
+mov      rdx,rax
+shr      rdx,0x20
+xor      rax,rdx
+```
+Converts Graycode into normal binary representation, which is an inverse of `rax ^ (rax >> 1)`.
 
 
 
