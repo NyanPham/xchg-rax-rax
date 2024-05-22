@@ -861,9 +861,10 @@ shr      edx,0x10
 and      edx,0x0000ffff
 add      eax,edx
 ```
+Hamming Weight
 Counts the number of set bits in `eax` register. This is equivalent to `popcnt` instruction.
 
-TODO: Learn about Brian Kernighan's algorithm and find the relation with this snippet.
+TODO: Learn more about Hamming Weight, Hamming Distance. Also learn about Brian Kernighan's algorithm.
 
 ### Snippet [[0x36]](https://www.xorpd.net/pages/xchg_rax/snip_36.html)
 ```
