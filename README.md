@@ -862,3 +862,36 @@ and      edx,0x0000ffff
 add      eax,edx
 ```
 Counts the number of set bits in `eax` register. This is equivalent to `popcnt` instruction.
+
+### Snippet [[0x36]](https://www.xorpd.net/pages/xchg_rax/snip_36.html)
+```
+dec      rax
+
+mov      rdx,rax
+shr      rdx,0x1
+or       rax,rdx
+
+mov      rdx,rax
+shr      rdx,0x2
+or       rax,rdx
+
+mov      rdx,rax
+shr      rdx,0x4
+or       rax,rdx
+
+mov      rdx,rax
+shr      rdx,0x8
+or       rax,rdx
+
+mov      rdx,rax
+shr      rdx,0x10
+or       rax,rdx
+
+mov      rdx,rax
+shr      rdx,0x20
+or       rax,rdx
+
+inc      rax
+```
+Finds the power of 2 that is right above the value of `rax`, or `rax` itself is already a power of 2.
+The snippet, decreases the value by 1, copies the most set significant bit to the least siginificant ones (all bits are set to one). Finally, increase the value by one to get the power of 2. 
