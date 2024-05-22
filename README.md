@@ -863,6 +863,8 @@ add      eax,edx
 ```
 Counts the number of set bits in `eax` register. This is equivalent to `popcnt` instruction.
 
+TODO: Learn about Brian Kernighan's algorithm and find the relation with this snippet.
+
 ### Snippet [[0x36]](https://www.xorpd.net/pages/xchg_rax/snip_36.html)
 ```
 dec      rax
