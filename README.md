@@ -713,6 +713,10 @@ Checks if the content in `rax` is a power of 2 and not zero. If `rax == rdx` in 
 ```
 Counts the number of set bits in `rcx`, stores the count in `rax`. The `dec` followed by `and` effectively clears least siginificant bit that is set in each iteration until `rcx` reaches 0. 
 
+The snippet uses the __Brian Kernighan's algorithm__.
+
+TODO: Learn more about __Brian Kernighan's algorithm__ (count set bits in a number)
+
 ### Snippet [[0x30]](https://www.xorpd.net/pages/xchg_rax/snip_30.html)
 ```
 and      rax,rdx
@@ -864,7 +868,7 @@ add      eax,edx
 Hamming Weight
 Counts the number of set bits in `eax` register. This is equivalent to `popcnt` instruction.
 
-TODO: Learn more about Hamming Weight, Hamming Distance. Also learn about Brian Kernighan's algorithm.
+TODO: Learn more about Hamming Weight, Hamming Distance.
 
 ### Snippet [[0x36]](https://www.xorpd.net/pages/xchg_rax/snip_36.html)
 ```
