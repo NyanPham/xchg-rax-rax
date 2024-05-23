@@ -915,6 +915,34 @@ and      rax,rdx
 ```
 Locates the position of 0x00 bytes in a dword. If a byte is zero, it's replaced with 0x80, 0x00 if non-zero.
 
+### Snippet [[0x38]](https://www.xorpd.net/pages/xchg_rax/snip_38.html)
+```
+bsf      rcx,rax
 
+mov      rdx,rax
+dec      rdx
+or       rdx,rax
 
+mov      rax,rdx
+inc      rax
 
+mov      rbx,rdx
+not      rbx
+inc      rdx
+and      rdx,rbx
+dec      rdx
+
+shr      rdx,cl
+shr      rdx,1
+
+or       rax,rdx
+```
+Computes the next largest integer of the same weight (the number of set bits) in `rax`.
+
+It does the following steps:
+- Find the index of the least significant set bit in `rax` (`bsf rcx, rax`).
+- Set all bits to the right from that index to be 1. This prepares for the next value propagation.
+- Increment to propagate the value to be the next power of 2.
+- Capture the remaining set bits by propagating the carry via `not` and `inc`.
+- Shift the carry into the index that we found in the first step.
+- Combine with the power of 2 in step 3 to get the final result.
