@@ -902,3 +902,19 @@ inc      rax
 ```
 Finds the power of 2 that is right above the value of `rax`, or `rax` itself is already a power of 2.
 The snippet, decreases the value by 1, copies the most set significant bit to the least siginificant ones (all bits are set to one). Finally, increase the value by one to get the power of 2. 
+
+### Snippet [[0x37]](https://www.xorpd.net/pages/xchg_rax/snip_37.html)
+```
+mov      rdx,rax
+not      rdx
+mov      rcx,0x8080808080808080
+and      rdx,rcx
+mov      rcx,0x0101010101010101
+sub      rax,rcx
+and      rax,rdx
+```
+Locates the position of 0x00 bytes in a dword. If a byte is zero, it's replaced with 0x80, 0x00 if non-zero.
+
+
+
+
