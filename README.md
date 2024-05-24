@@ -946,3 +946,33 @@ It does the following steps:
 - Capture the remaining set bits by propagating the carry via `not` and `inc`.
 - Shift the carry into the index that we found in the first step.
 - Combine with the power of 2 in step 3 to get the final result.
+
+### Snippet [[0x39]](https://www.xorpd.net/pages/xchg_rax/snip_39.html)
+```
+mov      rdx,0xaaaaaaaaaaaaaaaa
+add      rax,rdx
+xor      rax,rdx
+```
+Bytes with even bits set are added to 0x0a, resulting in a carry, and is performed `xor` operation on.
+
+Application: unknown.
+
+### Snippet [[0x3a]](https://www.xorpd.net/pages/xchg_rax/snip_3a.html)
+```
+mov      rdx,rax
+neg      rdx
+and      rax,rdx
+
+mov      rdx,0x218a392cd3d5dbf
+mul      rdx
+shr      rax,0x3a
+
+xlatb
+```
+The first block finds the least significant set bit, which determines the the highest power of two below the value in `rax`. `rax = rax & (-rax)`
+
+The second block computes `rax = (rax * 0x218a392cd3d5dbf) >> 58`. `rax` becomes an index for the lookup table.
+
+The last instruction computes `rax = rbx[al]`.
+
+Application: unknown.
