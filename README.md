@@ -410,7 +410,7 @@ Converts `al` from 0x00 to 0x0f to their corresponding Hexadecimal ASCII code.
 __Collatz conjecture__   
 For each iteration in `.loop`, the snippet does the following operations:
 - Searches for the index of the first set least significant bit of `rax`, starting at index 0. Stores the index in `rcx`.
-- Shift `rax` to the right `cl` times. This effectively divides `rax` by 2^cl, making `rax` an odd number.
+- Shift `rax` to the right `cl` times. This effectively divides `rax` by 2<sup>cl</sup>, making `rax` an odd number.
 - Computes the new `rax`: `rax = (rax * 3) + 1`
 - Repeats until `rax = 1`
 
@@ -566,20 +566,20 @@ In the beginning, `rcx = 0x100000000`
 
 In each iteration:
 	- `movzx rbx, cx`: Isolate the lower 2 bytes of `ecx` into `rbx`. Call it X.
-	- `imul rbx, rbx`: X^2
+	- `imul rbx, rbx`: X<sup>2</sup>
 	
 	- `ror rcx, 0x10`: Align the upper 2 bytes of `ecx` into place, lower 2 bytes preserved.
 	- `movzx rdx, cx`: Isolate the 2 bytes into `rdx`. Call it Y.
-	- `imul rdx, rdx`: Y^2
+	- `imul rdx, rdx`: Y<sup>2</sup>
 	- `rol rcx, 0x10`: Restore the content in `rcx`.
 	
-	- `add rbx, rdx`: X^2 + Y^2. Each X or Y is [0, 0xffff], so result is between 0 and 0x1FFFC0002. 
+	- `add rbx, rdx`: X<sup>2</sup> + Y<sup>2</sup>. Each X or Y is [0, 0xffff], so result is between 0 and 0x1FFFC0002. 
 	- `shr rbx, 0x20`: Shifting the bit 32th to the right. So `rbx` is either 0 or 1.
 	- `cmp rbx, 1`: Set the carry flag accordingly. 
-	- `adc rax, 0`: Increment `rax` by 1 if X^2 + Y^2 < 0x100000000 (0x10000^2).
+	- `adc rax, 0`: Increment `rax` by 1 if X<sup>2</sup> + Y<sup>2</sup> < 0x100000000 (0x10000<sup>2</sup>).
 	
 Summary:
-	We have a circle whose radius is 0x10000, centered at the origin (0, 0).  `ecx` holds a point coordinate (X, Y), where each X,Y is in range [0, 0xffff].  The `loop .loop` instruction decrement `ecx`, moving the check to the next point.  Computes the length^2 from the origin of the circle to the point (X,Y) using Pythagorean algorithm.  If length^2 < radius^2 (0x10000^2, or 0x100000000), increment the counter `rax`. In the end `rax` holds the number of the points that lie inside the circle.
+	We have a circle whose radius is 0x10000, centered at the origin (0, 0).  `ecx` holds a point coordinate (X, Y), where each X,Y is in range [0, 0xffff].  The `loop .loop` instruction decrement `ecx`, moving the check to the next point.  Computes the length<sup>2</sup> from the origin of the circle to the point (X,Y) using Pythagorean algorithm.  If length<sup>2</sup> < radius<sup>2</sup> (0x10000<sup>2</sup>, or 0x100000000), increment the counter `rax`. In the end `rax` holds the number of the points that lie inside the circle.
 	
 ### Snippet [[0x26]](https://www.xorpd.net/pages/xchg_rax/snip_26.html)
 ```
@@ -699,7 +699,7 @@ cmp      rax,rdx
 ```
 Checks if the content in `rax` is a power of 2 and not zero. If `rax == rdx` in the end, the original value in `rax` is a power of 2 and not zero.
 
-### Snippet [[0x2f](https://www.xorpd.net/pages/xchg_rax/snip_2f.html)
+### Snippet [[0x2f]](https://www.xorpd.net/pages/xchg_rax/snip_2f.html)
 ```
     xor      eax,eax
 .loop:
@@ -955,7 +955,10 @@ xor      rax,rdx
 ```
 Bytes with even bits set are added to 0x0a, resulting in a carry, and is performed `xor` operation on.
 
-Application: unknown.
+This snippet converts a normal binary to negabinary representation.
+Negabinary is the base -2. To convert a bit position from base 2 to base -2, we have the formula: 2<sup>n</sup> = (-2)<sup>n+1</sup> + (-2)<sup>n</sup>.
+
+n is the index of bit position from the least sigificant bit. If n is even, the bit position gives a positive power of 2; when n is odd, it's negative. Therefore, by adding 1 to the odd indexed bits (0xaaaaaaaaaaaaaaaa), we propagate the carry (if any) to higher bits (-2)<sup>n+1</sup>, then `xor` with the original value to set the n bit again (-2)<sup>n</sup> to obtain the negabinary representation.
 
 ### Snippet [[0x3a]](https://www.xorpd.net/pages/xchg_rax/snip_3a.html)
 ```
