@@ -506,7 +506,7 @@ Exit the loop:
 	- If the value is larger or equal to 3 (3, 4, 5), the remainder is the value subtracts 3.
 - The minuend of either 0 or 3 is determined thanks to the `cmc` instruction to set the contents of `rdx`.
 
-TODO: Review this
+TODO: Review this modulo 3 using the advantage of base 4.
 
 ### Snippet [[0x24]](https://www.xorpd.net/pages/xchg_rax/snip_24.html)
 ```
@@ -659,7 +659,7 @@ Find duplicates in an array, utilizing Floyd's Tortoise and Hare algorithm.
 - Loop 1: find the meeting point of Tortoise and Hare in the cycle.
 - Loop 2: find the start of the cycle, which is the duplicate value.
 
-TODO: Learn more about the algorithm.
+TODO: Learn more about Floyd's Tortoise and Hare algorithm.
 
 References: 
 [Wiki: Floyd's Tortoise and Hare](https://en.wikipedia.org/wiki/Cycle_detection#Floyd's_tortoise_and_hare)  
@@ -960,6 +960,10 @@ Negabinary is the base -2. To convert a bit position from base 2 to base -2, we 
 
 n is the index of bit position from the least sigificant bit. If n is even, the bit position gives a positive power of 2; when n is odd, it's negative. Therefore, by adding 1 to the odd indexed bits (0xaaaaaaaaaaaaaaaa), we propagate the carry (if any) to higher bits (-2)<sup>n+1</sup>, then `xor` with the original value to set the n bit again (-2)<sup>n</sup> to obtain the negabinary representation.
 
+TODO: Look into the negabinary more closely.
+
+References: [oeis.org - Negabinary](https://oeis.org/wiki/Negabinary)
+
 ### Snippet [[0x3a]](https://www.xorpd.net/pages/xchg_rax/snip_3a.html)
 ```
 mov      rdx,rax
@@ -978,4 +982,4 @@ The second block computes `rax = (rax * 0x218a392cd3d5dbf) >> 58`. `rax` becomes
 
 The last instruction computes `rax = rbx[al]`.
 
-Application: unknown.
+TODO: Examine what is the purpose of the snippet.
