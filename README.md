@@ -1001,9 +1001,8 @@ else
 	eax = eax << 1
 ```
 
-References:
-[Random Numbers with LFSR (Linear Feedback Shift Register) - Computerphile](https://youtu.be/Ks1pw1X22y4?si=LihFW4Zz8ZcvzvoS)
-
+References:  
+[Random Numbers with LFSR (Linear Feedback Shift Register) - Computerphile](https://youtu.be/Ks1pw1X22y4?si=LihFW4Zz8ZcvzvoS)  
 [Wiki - Linear-feedback shift register](https://en.wikipedia.org/wiki/Linear-feedback_shift_register)
 
 ### Snippet [[0x3c]](https://www.xorpd.net/pages/xchg_rax/snip_3c.html)
@@ -1048,6 +1047,26 @@ Application: unknown.
 
 TODO: Examine what is the purpose of the snippet.
 
+### Snippet [[0x3d]](https://www.xorpd.net/pages/xchg_rax/snip_3d.html)
+```
+    mov      rcx,1
+.loop:
+    xor      rax,rcx
+    not      rax
+    and      rcx,rax
+    not      rax
+
+    xor      rdx,rcx
+    not      rdx
+    and      rcx,rdx
+    not      rdx
+
+    shl      rcx,1
+    jnz      .loop
+```
+Application: unknown.
+
+TODO: Examine what is the purpose of the snippet.
 
 
 
