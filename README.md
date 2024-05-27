@@ -983,3 +983,25 @@ The second block computes `rax = (rax * 0x218a392cd3d5dbf) >> 58`. `rax` becomes
 The last instruction computes `rax = rbx[al]`.
 
 TODO: Examine what is the purpose of the snippet.
+
+### Snippet [[0x3b]](https://www.xorpd.net/pages/xchg_rax/snip_3b.html)
+```
+cdq
+shl      eax,1
+and      edx,0xc0000401
+xor      eax,edx
+```
+Computes the next state in LFSR. 
+The number c0000401 is polynomial, so it will cycle through 32-bit integers, except 0. The `cdq` is used to check if the most significant bit is 1 to `xor` with the polynomial constant.
+
+```
+if (eax & (1 << 31))
+	eax = (eax << 1) ^ 0xc0000401
+else 
+	eax = eax << 1
+```
+
+References:
+[Random Numbers with LFSR (Linear Feedback Shift Register) - Computerphile](https://youtu.be/Ks1pw1X22y4?si=LihFW4Zz8ZcvzvoS)
+
+[Wiki - Linear-feedback shift register](https://en.wikipedia.org/wiki/Linear-feedback_shift_register)
