@@ -1005,3 +1005,49 @@ References:
 [Random Numbers with LFSR (Linear Feedback Shift Register) - Computerphile](https://youtu.be/Ks1pw1X22y4?si=LihFW4Zz8ZcvzvoS)
 
 [Wiki - Linear-feedback shift register](https://en.wikipedia.org/wiki/Linear-feedback_shift_register)
+
+### Snippet [[0x3c]](https://www.xorpd.net/pages/xchg_rax/snip_3c.html)
+```
+mov      rbx,rax
+mov      rdx,rbx
+mov      rcx,0xaaaaaaaaaaaaaaaa
+and      rbx,rcx
+shr      rbx,1
+and      rbx,rdx
+popcnt   rbx,rbx
+and      rbx,1
+
+neg      rax
+mov      rdx,rax
+mov      rcx,0xaaaaaaaaaaaaaaaa
+and      rax,rcx
+shr      rax,1
+and      rax,rdx
+popcnt   rax,rax
+and      rax,1
+
+mov      rdx,rax
+add      rax,rbx
+dec      rax
+neg      rax
+sub      rdx,rbx
+```
+`rbx = rax`
+
+The first block computes the number of set bit-pairs in `rbx` to  to be odd or even. So `rbx` is either 0 or 1.
+
+The second block computes the number of set bit-pairs in negated `rax` to be odd or even. So `rax` is either 0 or 1.
+
+The last block returns the value of `rax` and `rdx`, each can be either -1, 0 or 1:
+```
+rdx = rax - rbx
+rax = 0 - (rax + rbx - 1);
+```
+
+Application: unknown.
+
+TODO: Examine what is the purpose of the snippet.
+
+
+
+
