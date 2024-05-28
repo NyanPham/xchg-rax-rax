@@ -4,7 +4,7 @@ global _start
 extern ExitProcess
 	
 _start:
-	mov		rax, 0x05
+	mov		rax, 0x04
 	
 	;====================
 	; Start snippet
