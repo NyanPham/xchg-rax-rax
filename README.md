@@ -992,7 +992,7 @@ and      edx,0xc0000401
 xor      eax,edx
 ```
 Computes the next state in LFSR. 
-The number c0000401 is polynomial, so it will cycle through 32-bit integers, except 0. The `cdq` is used to check if the most significant bit is 1 to `xor` with the polynomial constant.
+The number c0000401 is polynomial, so it will cycle through all 32-bit integers, except 0. The `cdq` is used to check if the most significant bit is 1 to `xor` with the polynomial constant.
 
 ```
 if (eax & (1 << 31))
@@ -1067,6 +1067,56 @@ TODO: Examine what is the purpose of the snippet.
 Application: unknown.
 
 TODO: Examine what is the purpose of the snippet.
+
+### Snippet [[0x3e]](https://www.xorpd.net/pages/xchg_rax/snip_3e.html)
+```
+mov      rdx,rax
+shr      rdx,1
+xor      rax,rdx
+
+popcnt   rax,rax
+and      rax,0x3
+```
+The snippet computes `rax = popcnt(rax ^ (rax >> 1)) & 3`.
+
+Application: unknown.
+
+TODO: Examine what is the purpose of the snippet.
+
+### Snippet [[0x3f]](https://www.xorpd.net/pages/xchg_rax/snip_3f.html)
+```
+mov      rbx,3
+mov      r8,rax
+mov      rcx,rax
+dec      rcx
+
+and      rax,rcx
+xor      edx,edx
+div      rbx
+mov      rsi,rdx
+
+mov      rax,r8
+or       rax,rcx
+xor      edx,edx
+div      rbx
+inc      rdx
+cmp      rdx,rbx
+sbb      rdi,rdi
+and      rdi,rdx
+
+bsf      rax,r8
+```
+The first block save the original content in `rax` in `r8`, and set up a value `rcx = rax - 1`.  
+The second block computes `rsi = rax ^ (rax - 1) % 3`.  
+The third block	computes `rdi = (((rax | (rax - 1)) % 3) + 1) % 3`.
+
+The snippet takes `rax` as a n<sup>th</sup> move, and returns `rsi` and `rdi`, each can be either 0, 1, or 2. `rsi` indicates the source index and `rdi` indicates the destination index. All together, the snippet computes the source peg and the destination peg at a n<sup>th</sup> move as a slice in the solution of the __Towers of Hanoi__
+
+TODO: Look more closely how the binary solution is binded with the two formulas above for source and destination indices.
+
+References:
+[Binary, Hanoi and Sierpinski, part 1](https://www.youtube.com/watch?v=2SUvWfNJSsM&pp=ygUeQmluYXJ5IHNvbHV0aW9uIHRvd2VyIG9mIGhhbm9p)  
+[Wiki - Towers of Hanoi](https://en.wikipedia.org/wiki/Tower_of_Hanoi#Binary_solution)
 
 
 
