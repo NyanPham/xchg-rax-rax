@@ -659,8 +659,6 @@ Find duplicates in an array, utilizing Floyd's Tortoise and Hare algorithm.
 - Loop 1: find the meeting point of Tortoise and Hare in the cycle.
 - Loop 2: find the start of the cycle, which is the duplicate value.
 
-TODO: Learn more about Floyd's Tortoise and Hare algorithm.
-
 References: 
 [Wiki: Floyd's Tortoise and Hare](https://en.wikipedia.org/wiki/Cycle_detection#Floyd's_tortoise_and_hare)  
 [YouTube: Floyd's cycle detection algorithm (Tortoise and hare) - Inside code](https://youtu.be/PvrxZaH_eZ4)
@@ -713,9 +711,7 @@ Checks if the content in `rax` is a power of 2 and not zero. If `rax == rdx` in 
 ```
 Counts the number of set bits in `rcx`, stores the count in `rax`. The `dec` followed by `and` effectively clears least siginificant bit that is set in each iteration until `rcx` reaches 0. 
 
-The snippet uses the __Brian Kernighan's algorithm__.
-
-TODO: Learn more about __Brian Kernighan's algorithm__ (count set bits in a number)
+The snippet uses the __Brian Kernighan's algorithm__ (count set bits in a number).
 
 ### Snippet [[0x30]](https://www.xorpd.net/pages/xchg_rax/snip_30.html)
 ```
@@ -868,7 +864,8 @@ add      eax,edx
 Hamming Weight
 Counts the number of set bits in `eax` register. This is equivalent to `popcnt` instruction.
 
-TODO: Learn more about Hamming Weight, Hamming Distance.
+References:  
+[Wiki - Hamming Weight](https://en.wikipedia.org/wiki/Hamming_weight#Efficient_implementation)
 
 ### Snippet [[0x36]](https://www.xorpd.net/pages/xchg_rax/snip_36.html)
 ```
@@ -959,8 +956,6 @@ This snippet converts a normal binary to negabinary representation.
 Negabinary is the base -2. To convert a bit position from base 2 to base -2, we have the formula: 2<sup>n</sup> = (-2)<sup>n+1</sup> + (-2)<sup>n</sup>.
 
 n is the index of bit position from the least sigificant bit. If n is even, the bit position gives a positive power of 2; when n is odd, it's negative. Therefore, by adding 1 to the odd indexed bits (0xaaaaaaaaaaaaaaaa), we propagate the carry (if any) to higher bits (-2)<sup>n+1</sup>, then `xor` with the original value to set the n bit again (-2)<sup>n</sup> to obtain the negabinary representation.
-
-TODO: Look into the negabinary more closely.
 
 References: [oeis.org - Negabinary](https://oeis.org/wiki/Negabinary)
 
