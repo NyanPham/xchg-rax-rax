@@ -986,9 +986,9 @@ This is pretty much a vague snippet as it's not complete for functionality.
 For the whole picture, the snippet uses deBrujin strategy to index the 1 in the number computed in the first block.
 How does it work? Why 0x218a392cd3d5dbf? why 58?
 The snippet is the hash function which is computed by 
-```
-y = (x * deBrujin) >> (n - log<sub>2</sub>n)
-```
+
+    y = (x * deBrujin) >> (n - log<sub>2</sub>n)
+
 n is the number of bit (64), so log<sub>2</sub>64 = 6. That's how 58 (64 - 6) comes to place.
 
 The 0x218a392cd3d5dbf is the deBrujin because if we pick any sequence with the length of log<sub>2</sub>64 (6), we have a distinct value (a 6-bit window that slides to the right 1 bit at a time to indicate the index). 
