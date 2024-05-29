@@ -976,13 +976,24 @@ shr      rax,0x3a
 
 xlatb
 ```
-The first block finds the least significant set bit, which determines the the highest power of two below the value in `rax`. `rax = rax & (-rax)`
+The first block finds the least significant set bit, which determines the the highest power of two dividing `rax`. `rax = rax & (-rax)`
 
 The second block computes `rax = (rax * 0x218a392cd3d5dbf) >> 58`. `rax` becomes an index for the lookup table.
 
 The last instruction computes `rax = rbx[al]`.
 
-TODO: Examine what is the purpose of the snippet.
+This is pretty much a vague snippet as it's not complete for functionality.
+For the whole picture, the snippet uses deBrujin strategy to index the 1 in the number computed in the first block.
+How does it work? Why 0x218a392cd3d5dbf? why 58?
+The snippet is the hash function which is computed by 
+```
+y = (x * deBrujin) >> (n - log<sub>2</sub>n)
+```
+n is the number of bit (64), so log<sub>2</sub>64 = 6. That's how 58 (64 - 6) comes to place.
+
+The 0x218a392cd3d5dbf is the deBrujin because if we pick any sequence with the length of log<sub>2</sub>64 (6), we have a distinct value (a 6-bit window that slides to the right 1 bit at a time to indicate the index). 
+
+Finally we use y as an index in the table pointed by `rbx` to get the index of the 1.
 
 ### Snippet [[0x3b]](https://www.xorpd.net/pages/xchg_rax/snip_3b.html)
 ```
@@ -1114,7 +1125,7 @@ The snippet takes `rax` as a n<sup>th</sup> move, and returns `rsi` and `rdi`, e
 
 TODO: Look more closely how the binary solution is binded with the two formulas above for source and destination indices.
 
-References:
+References:  
 [Binary, Hanoi and Sierpinski, part 1](https://www.youtube.com/watch?v=2SUvWfNJSsM&pp=ygUeQmluYXJ5IHNvbHV0aW9uIHRvd2VyIG9mIGhhbm9p)  
 [Wiki - Towers of Hanoi](https://en.wikipedia.org/wiki/Tower_of_Hanoi#Binary_solution)
 
