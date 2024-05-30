@@ -1093,7 +1093,8 @@ and      rax,0x3
 ```
 The snippet computes `rax = popcnt(rax ^ (rax >> 1)) & 3`.
 
-Some of the first outputs are `0, 1, 2, 1, 2, 3, 2, 1, 2, 3, 0, 3`
+Some of the first outputs are `0, 1, 2, 1, 2, 3, 2, 1, 2, 3, 0, 3`.  
+
 This is the start of a sequence of [Directions of the lines in the (Heighway) Dragon Curve](https://oeis.org/A246960).
 
 ### Snippet [[0x3f]](https://www.xorpd.net/pages/xchg_rax/snip_3f.html)
