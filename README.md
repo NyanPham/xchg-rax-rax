@@ -1078,7 +1078,7 @@ First flip the bit at the position indicated by `rcx`.
 If the bit is flipped from 0 to 1, the `not` will clear that bit in `rcx`, `rcx` becomes zero, the snippet stops.
 If the bit is flipped from 1 to 0, the `not` will retain the set bit in `rcx`, the next check comes to the next position in the interleaved number (`rax` -> `rdx`, or `rdx` -> `rax` with `rcx` indicates the next bit position).
 
-This is the same as incremeting a number, propagting the carry bit to the next bit. 
+This is the same as incrementing a number, propagting the carry bit to the next bit position. 
 
 The interleaved number is used to locate the position of a point in two dimensions when drawing a [Z-order curve](https://en.wikipedia.org/wiki/Z-order_curve).
 
@@ -1093,9 +1093,8 @@ and      rax,0x3
 ```
 The snippet computes `rax = popcnt(rax ^ (rax >> 1)) & 3`.
 
-Application: unknown.
-
-TODO: Examine what is the purpose of the snippet.
+Some of the first outputs are `0, 1, 2, 1, 2, 3, 2, 1, 2, 3, 0, 3`
+This is the start of a sequence of [Directions of the lines in the (Heighway) Dragon Curve](https://oeis.org/A246960).
 
 ### Snippet [[0x3f]](https://www.xorpd.net/pages/xchg_rax/snip_3f.html)
 ```
