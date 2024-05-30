@@ -1037,9 +1037,8 @@ dec      rax
 neg      rax
 sub      rdx,rbx
 ```
-`rbx = rax`
 
-The first block computes the number of set bit-pairs in `rbx` to  to be odd or even. So `rbx` is either 0 or 1.
+The first block computes the number of set bit-pairs in `rbx` to be odd or even. So `rbx` is either 0 or 1.
 
 The second block computes the number of set bit-pairs in negated `rax` to be odd or even. So `rax` is either 0 or 1.
 
@@ -1049,9 +1048,10 @@ rdx = rax - rbx
 rax = 0 - (rax + rbx - 1);
 ```
 
-Application: unknown.
+`rax` and `rbx` are directions in two dimensions which draw [Hilbert Curve](https://en.wikipedia.org/wiki/Hilbert_curve). 
 
-TODO: Examine what is the purpose of the snippet.
+References:  
+[Hilbert's Curve: Is infinite math useful?](https://youtu.be/3s7h2MHQtxc?si=3KC2CqTtkHXMaTt5)  
 
 ### Snippet [[0x3d]](https://www.xorpd.net/pages/xchg_rax/snip_3d.html)
 ```
@@ -1070,9 +1070,17 @@ TODO: Examine what is the purpose of the snippet.
     shl      rcx,1
     jnz      .loop
 ```
-Application: unknown.
+`rax` and `rdx` interleave to create a position of a dot in two dimensions.
+`rax` holds the even-indexed bits, while `rdx` holds the odd-indexed bits.
+`rcx` is the bit to increment to the number interleaved by `rax` and `rdx`. 
 
-TODO: Examine what is the purpose of the snippet.
+First flip the bit at the position indicated by `rcx`.
+If the bit is flipped from 0 to 1, the `not` will clear that bit in `rcx`, `rcx` becomes zero, the snippet stops.
+If the bit is flipped from 1 to 0, the `not` will retain the set bit in `rcx`, the next check comes to the next position in the interleaved number (`rax` -> `rdx`, or `rdx` -> `rax` with `rcx` indicates the next bit position).
+
+This is the same as incremeting a number, propagting the carry bit to the next bit. 
+
+The interleaved number is used to locate the position of a point in two dimensions when drawing a [Z-order curve](https://en.wikipedia.org/wiki/Z-order_curve).
 
 ### Snippet [[0x3e]](https://www.xorpd.net/pages/xchg_rax/snip_3e.html)
 ```
