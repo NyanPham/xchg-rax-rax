@@ -37,7 +37,10 @@ sbb      rax,rax
 neg      rax
 ```
 Check the value in the `rax` register to be non-zero or not. If it's non-zero, store 1 back in `rax`, 0 otherwise. 
-`rax = (rax != 0 ? 1 : 0)`
+
+```
+rax = (rax != 0 ? 1 : 0)
+```
 
 ### Snippet [[0x03]](https://www.xorpd.net/pages/xchg_rax/snip_03.html)
 ```
@@ -47,7 +50,9 @@ and      rcx,rdx
 add      rax,rcx
 ```
 Get the min value between `rdx` and `rax` registers. The result is stored in `rax`.  
-`rax = min(rdx, rax)`
+```
+rax = min(rdx, rax)
+```
 
 ### Snippet [[0x04]](https://www.xorpd.net/pages/xchg_rax/snip_04.html)
 ```
@@ -265,7 +270,9 @@ add      rax,rcx
 ```
 Computes the average between `rax` and `rdx`, rounded to the lowest integer and stored in `rax`.
 
-`(rax & rdx) + ((rax ^ rdx) / 2) = (rax + rdx) / 2`
+```
+(rax & rdx) + ((rax ^ rdx) / 2) = (rax + rdx) / 2
+```
 
 ### Snippet [[0x15]](https://www.xorpd.net/pages/xchg_rax/snip_15.html)
 ```
@@ -658,7 +665,7 @@ In other words, it moves the last qword in `ecx`-length qword array to the front
     cmp      al,dl
     jnz      .loop2
 ```
-Find duplicates in an array, utilizing [Floyd's Tortoise and Hare\ algorithm(https://en.wikipedia.org/wiki/Cycle_detection#Floyd's_tortoise_and_hare).  
+Find duplicates in an array, utilizing [Floyd's Tortoise and Hare](https://en.wikipedia.org/wiki/Cycle_detection#Floyd's_tortoise_and_hare) algorithm.  
 
 - `eax` is Tortoise, `edx` is Hare.
 - Loop 1: find the meeting point of Tortoise and Hare in the cycle.
