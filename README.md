@@ -477,6 +477,10 @@ mov      rax,rdx
 ```
 Divides `rax` by 3, rounded down to the closest integer.
 
+0xaaaaaaaaaaaaaaab is approximately (2^64) / 3
+
+So multiplying the rax with this 0xaaaaaaaaaaaaaaab, then only use the rdx value is the same as multiplying the number by 1/3.
+
 `rax = rax / 3`
 
 ### Snippet [[0x23]](https://www.xorpd.net/pages/xchg_rax/snip_23.html)
